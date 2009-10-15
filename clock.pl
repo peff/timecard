@@ -25,6 +25,14 @@ elsif ($what eq 'edit') {
     or die "unable to exec editor '$e': $!";
 }
 
+elsif ($what eq 'sum') {
+  my $tc = TimeCard->new($TIMECARD);
+  my $total = DateTime::Duration->new;
+  $total += $_->duration foreach $tc->slots;
+  my $hours = $total->hours + ($total->minutes / 60);
+  printf "%.2f hours\n", $hours;
+}
+
 else {
   die "unknown subcommand: $what";
 }

@@ -84,4 +84,9 @@ sub recent {
   return $self->{slots}->[-1];
 }
 
+sub slots {
+  my $self = shift;
+  return @{$self->{slots}};
+}
+
 1;

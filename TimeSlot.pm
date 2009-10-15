@@ -71,11 +71,48 @@ sub finish {
   push @{$self->{comment}}, @_;
 }
 
+sub duration {
+  my $self = shift;
+  my ($start, $end) = $self->_times;
+  return $end - $start;
+}
+
 sub _now() {
   my $now = DateTime->now(time_zone => 'local');
   return sprintf('%d-%02d-%02d %02d:%02d',
     $now->year, $now->month, $now->day, $now->hour, $now->minute
   );
+}
+
+sub _times {
+  my $self = shift;
+
+  $self->{start} =~ /^(\d+)-(\d+)-(\d+) (\d+):(\d+)$/
+    or die "unable to parse start time: $self->{start}";
+  my $start = DateTime->new(
+    year => $1, month => $2, day => $3,
+    hour => $4, minute => $5,
+    time_zone => 'local'
+  );
+
+  my $end =
+    $self->{end} =~ /^(\d+)-(\d+)-(\d+) (\d+):(\d+)$/ ?
+      DateTime->new(
+        year => $1, month => $2, day => $3,
+        hour => $4, minute => $5,
+        time_zone => 'local'
+      ) :
+    $self->{end} =~ /^(\d+):(\d+)$/ ?
+      DateTime->new(
+        year => $start->year, month => $start->month, day => $start->day,
+        hour => $1, minute => $2,
+        time_zone => 'local'
+      ) :
+    $self->{end} eq 'INPROGRESS' ?
+      _now() :
+    die "unable to parse end time: $self->{end}";
+
+  return ($start, $end);
 }
 
 1;
