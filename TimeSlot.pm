@@ -79,6 +79,8 @@ sub comment {
 sub duration {
   my $self = shift;
   my ($start, $end) = $self->_times;
+  $end >= $start
+    or die "backwards time: $self->{start} - $self->{end}";
   return $end - $start;
 }
 
