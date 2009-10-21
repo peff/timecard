@@ -70,18 +70,21 @@ sub punch_in {
 
 sub punch_out {
   my $self = shift;
-
-  my $old = $self->recent;
-  if (!$old || !$old->in_progress) {
-    die "you are not punched in";
-  }
-
-  $old->finish(undef, @_);
+  $self->current->finish(undef, @_);
 }
 
 sub recent {
   my $self = shift;
   return $self->{slots}->[-1];
+}
+
+sub current {
+  my $self = shift;
+  my $r = $self->recent;
+  if (!$r || !$r->in_progress) {
+    die "you are not punched in";
+  }
+  return $r;
 }
 
 sub slots {
