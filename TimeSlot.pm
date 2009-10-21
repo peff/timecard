@@ -82,8 +82,12 @@ sub duration {
   return $end - $start;
 }
 
-sub _now() {
-  my $now = DateTime->now(time_zone => 'local');
+sub _now_dt {
+  return DateTime->now(time_zone => 'local');
+}
+
+sub _now {
+  my $now = _now_dt();
   return sprintf('%d-%02d-%02d %02d:%02d',
     $now->year, $now->month, $now->day, $now->hour, $now->minute
   );
@@ -114,7 +118,7 @@ sub _times {
         time_zone => 'local'
       ) :
     $self->{end} eq 'INPROGRESS' ?
-      _now() :
+      _now_dt() :
     die "unable to parse end time: $self->{end}";
 
   return ($start, $end);
