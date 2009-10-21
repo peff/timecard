@@ -68,7 +68,7 @@ sub finish {
   my $self = shift;
   $self->{end} = shift;
   $self->{end} ||= _now();
-  push @{$self->{comment}}, @_;
+  push @{$self->{comments}}, @_;
 }
 
 sub duration {
