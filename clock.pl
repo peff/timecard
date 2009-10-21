@@ -19,6 +19,12 @@ elsif ($what eq 'out') {
   $tc->save($TIMECARD);
 }
 
+elsif ($what eq 'comment') {
+  my $tc = TimeCard->new($TIMECARD);
+  $tc->comment(@ARGV ? join(' ', @ARGV) : undef);
+  $tc->save($TIMECARD);
+}
+
 elsif ($what eq 'edit') {
   my $e = Editor::guess;
   exec $e, $TIMECARD

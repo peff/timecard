@@ -73,6 +73,11 @@ sub punch_out {
   $self->current->finish(undef, @_);
 }
 
+sub comment {
+  my $self = shift;
+  $self->current->comment(@_);
+}
+
 sub recent {
   my $self = shift;
   return $self->{slots}->[-1];
