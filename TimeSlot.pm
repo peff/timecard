@@ -76,6 +76,11 @@ sub comment {
   push @{$self->{comments}}, @_;
 }
 
+sub comments {
+  my $self = shift;
+  return @{$self->{comments}};
+}
+
 sub duration {
   my $self = shift;
   my ($start, $end) = $self->_times;

@@ -39,6 +39,17 @@ elsif ($what eq 'sum') {
   printf "%.2f hours\n", $hours;
 }
 
+elsif ($what eq 'list') {
+  my $tc = TimeCard->new($TIMECARD);
+  foreach my $slot ($tc->slots) {
+    my $d = $slot->duration;
+    my $hours = $d->hours + ($d->minutes / 60);
+    printf "%.2f ", $hours;
+    print join(' / ', $slot->comments);
+    print "\n";
+  }
+}
+
 else {
   die "unknown subcommand: $what";
 }
