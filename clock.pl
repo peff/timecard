@@ -50,6 +50,21 @@ elsif ($what eq 'list') {
   }
 }
 
+elsif (!$what) {
+  my $tc = TimeCard->new($TIMECARD);
+  my $slot = $tc->recent;
+  if ($slot && $slot->in_progress) {
+    print "You are currently punched IN.\n";
+    if ($slot->comments) {
+      print "Comments:\n";
+      print $_, "\n" foreach $slot->comments;
+    }
+  }
+  else {
+    print "You are currently punched OUT.\n";
+  }
+}
+
 else {
   die "unknown subcommand: $what";
 }
