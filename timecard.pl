@@ -51,7 +51,8 @@ elsif (!$what) {
   my $tc = TimeCard->new($TIMECARD);
   my $slot = $tc->recent;
   if ($slot && $slot->in_progress) {
-    print "You are currently punched IN.\n";
+    print "You are currently punched IN (",
+            $slot->duration->timecard_hours, " hours)\n";
     if ($slot->comments) {
       print "Comments:\n";
       print $_, "\n" foreach $slot->comments;
