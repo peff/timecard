@@ -3,7 +3,7 @@ use Error::Die; # DEPEND
 use TimeCard; # DEPEND
 use Editor; # DEPEND
 
-my $TIMECARD = "$ENV{HOME}/.timecard";
+my $TIMECARD = $ENV{TIMECARD} || "$ENV{HOME}/.timecard";
 
 my $what = shift;
 
