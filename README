@@ -1,0 +1,28 @@
+This is an absurdly simple timecard program. The entries are all kept in
+a single text file. Each "slot" is delimited by a blank line, and
+contains a start time, an end time, and some comments. If the slot is
+still "open", then the end time is listed as "INPROGRESS".
+
+You can use it like this:
+
+  timecard in 'working on foo'
+  timecard out
+  timecard edit ;# manually munge the data
+  timecard sum ;# total hours worked
+  timecard list ;# per-slot report
+
+The data is kept in the ~/.timecard file. You can override it with the
+$TIMECARD environment variable.
+
+There is also a wrapper script "clock" which keeps a timecard in a git
+repository. It pulls before running timecard, and commits and pushes
+afterwards, which gives an approximation of a centralized system. You
+must have ~/.timecard already set up as a git repository.
+
+Note that there is no support for marking entries as "invoiced" or
+anything like that. But you can do it manually like:
+
+  clock sum | mail -s 'pay me'
+  cd ~/.timecard
+  git mv timecard invoiced/2009-11-01
+  git commit -m 'november invoice'
