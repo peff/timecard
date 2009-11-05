@@ -35,16 +35,13 @@ elsif ($what eq 'sum') {
   my $tc = TimeCard->new($TIMECARD);
   my $total = DateTime::Duration->new;
   $total += $_->duration foreach $tc->slots;
-  my $hours = $total->hours + ($total->minutes / 60);
-  printf "%.2f hours\n", $hours;
+  print $total->timecard_hours, " hours\n";
 }
 
 elsif ($what eq 'list') {
   my $tc = TimeCard->new($TIMECARD);
   foreach my $slot ($tc->slots) {
-    my $d = $slot->duration;
-    my $hours = $d->hours + ($d->minutes / 60);
-    printf "%.2f ", $hours;
+    print $slot->duration->timecard_hours, ' ';
     print join(' / ', $slot->comments);
     print "\n";
   }

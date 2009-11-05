@@ -3,6 +3,10 @@ use strict;
 use overload '""' => \&as_string;
 use DateTime;
 
+sub DateTime::Duration::timecard_hours {
+  sprintf '%.2f', $_[0]->hours + ($_[0]->minutes / 60);
+}
+
 sub new_from_data {
   my $self = bless {}, shift;
 
