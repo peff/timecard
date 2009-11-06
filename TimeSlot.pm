@@ -23,6 +23,8 @@ sub new_from_fh {
   my $self = bless {}, shift;
   my $fh = shift;
 
+  $self->{comments} = [];
+
   while(<$fh>) {
     chomp;
 
