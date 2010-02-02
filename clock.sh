@@ -1,6 +1,6 @@
 set -e
 
-cd $HOME/.timecard
+cd ${TIMECARD_HOME:-$HOME/.timecard}
 
 mutator() {
   case "$1" in
