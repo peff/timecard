@@ -3,8 +3,13 @@ set -e
 cd ${TIMECARD_HOME:-$HOME/.timecard}
 
 mutator=
+msg=
 case "$1" in
-  in|out|comment|edit)
+  in|out|comment)
+    mutator=t
+    msg="clock $*"
+    ;;
+  edit)
     mutator=t
     ;;
 esac
@@ -17,6 +22,6 @@ TIMECARD=timecard timecard "$@"
 
 if test -n "$mutator"; then
   git add -A
-  git commit -q -m "clock $*"
+  git commit -q ${msg:+-m "$msg"}
   git push -q
 fi
