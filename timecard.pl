@@ -55,7 +55,7 @@ elsif (!$what) {
             $slot->duration->timecard_hours, " hours)\n";
     if ($slot->comments) {
       print "Comments:\n";
-      print $_, "\n" foreach $slot->comments;
+      print " - ", $_, "\n" foreach $slot->comments;
     }
   }
   else {
