@@ -60,7 +60,7 @@ elsif ($what eq 'daily') {
 
     my $sum = 0;
     $sum += $_->duration->timecard_hours for (@slots[$i..$end-1]);
-    printf "%s %.02f\n", $date, $sum;
+    printf "%s %.02f\n", $date, round_up_to($sum, 0.25);
 
     print map { " - $_\n" } map { $_->comments } @slots[$i..$end-1];
     $i = $end;
@@ -85,4 +85,11 @@ elsif (!$what) {
 
 else {
   die "unknown subcommand: $what";
+}
+
+sub round_up_to {
+  my ($n, $increment) = @_;
+  my $units = $n / $increment;
+  $units++ unless $units == int($units);
+  return int($units) * $increment;
 }
