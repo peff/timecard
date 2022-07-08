@@ -95,6 +95,11 @@ sub duration {
   return $end - $start;
 }
 
+sub date {
+  my $self = shift;
+  return (split / /, $self->{start})[0];
+}
+
 sub _now_dt {
   return DateTime->now(time_zone => 'local');
 }
