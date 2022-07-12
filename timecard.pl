@@ -50,6 +50,7 @@ elsif ($what eq 'list') {
 elsif ($what eq 'daily') {
   my $tc = TimeCard->new($TIMECARD);
   my @slots = $tc->slots;
+  my $total = 0;
   my $i = 0;
   while ($i < @slots) {
     my $date = $slots[$i]->date;
@@ -60,11 +61,14 @@ elsif ($what eq 'daily') {
 
     my $sum = 0;
     $sum += $_->duration->timecard_hours for (@slots[$i..$end-1]);
-    printf "%s %.02f\n", $date, round_up_to($sum, 0.25);
+    $sum = round_up_to($sum, 0.25);
+    $total += $sum;
+    printf "%s %.02f\n", $date, $sum;
 
     print map { " - $_\n" } map { $_->comments } @slots[$i..$end-1];
     $i = $end;
   }
+  print "total: $total\n";
 }
 
 elsif (!$what) {
