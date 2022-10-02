@@ -21,7 +21,7 @@ fi
 TIMECARD=timecard timecard "$@"
 
 if test -n "$mutator"; then
-  git add -A
-  git commit -q ${msg:+-m "$msg"}
+  git add timecard
+  git commit -q ${msg:+-m "$msg"} -- timecard
   git push -q
 fi
