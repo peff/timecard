@@ -65,7 +65,11 @@ elsif ($what eq 'daily') {
     $total += $sum;
     printf "%s %.02f\n", $date, $sum;
 
-    print map { " - $_\n" } map { $_->comments } @slots[$i..$end-1];
+    my %seen;
+    print map { " - $_\n" }
+          grep { !$seen{$_}++ }
+          map { $_->comments }
+          @slots[$i..$end-1];
     $i = $end;
   }
   print "total: $total\n";
